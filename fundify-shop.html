@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FUNDIFY 💲 – Joseph Mulenga's Shop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #f7f2ea;
+      --warm-white: #fdfaf5;
+      --deep-green: #1c3a2a;
+      --mid-green: #2d5a42;
+      --light-green: #4a7c5f;
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --brown: #6b4226;
+      --text-dark: #1a1a18;
+      --text-mid: #4a4a42;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream); color: var(--text-dark); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+
+    /* ── HERO ── */
+    header {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1542838132-92c53300491e?w=1800&q=85');
+      background-size: cover;
+      background-position: center;
+      animation: zoomOut 10s ease forwards;
+    }
+    @keyframes zoomOut {
+      from { transform: scale(1.08); }
+      to   { transform: scale(1.0); }
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(12,28,18,0.87) 0%, rgba(28,58,42,0.78) 50%, rgba(12,28,18,0.92) 100%);
+    }
+    .hero-border {
+      position: absolute;
+      inset: 22px;
+      border: 1px solid rgba(201,168,76,0.35);
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      text-align: center;
+      padding: 40px 24px;
+      animation: heroIn 1.3s cubic-bezier(.16,1,.3,1) both;
+    }
+    @keyframes heroIn {
+      from { opacity: 0; transform: translateY(50px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .tagline-top {
+      font-size: 0.7rem;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 26px;
+      opacity: 0.8;
+      font-weight: 300;
+    }
+    .hero-brand {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(4rem, 14vw, 11rem);
+      font-weight: 700;
+      line-height: 0.9;
+      color: #fff;
+      letter-spacing: -0.04em;
+    }
+    .hero-brand .dollar { color: var(--gold-light); }
+    .hero-sub-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      font-style: italic;
+      color: rgba(247,242,234,0.6);
+      margin-top: 10px;
+      letter-spacing: 0.08em;
+    }
+    .hero-divider {
+      width: 70px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 30px auto;
+    }
+    .hero-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.05rem, 2.5vw, 1.55rem);
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(247,242,234,0.72);
+      max-width: 460px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+    .hero-cta {
+      display: inline-block;
+      padding: 14px 42px;
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      font-size: 0.76rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.32s ease;
+    }
+    .hero-cta:hover { background: var(--gold); color: var(--deep-green); }
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: rgba(247,242,234,0.35);
+      font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, transparent, var(--gold-light));
+      animation: scrollDown 2s ease-in-out infinite;
+    }
+    @keyframes scrollDown {
+      0%,100% { opacity: 0; transform: scaleY(0); transform-origin: top; }
+      50%      { opacity: 1; transform: scaleY(1); }
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(18,42,28,0.97);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 44px;
+    }
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.15rem;
+      color: var(--gold-light);
+      letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 34px; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(247,242,234,0.6);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+
+    /* ── DRINKS ── */
+    #drinks { background: var(--warm-white); padding: 90px 0; }
+    .sec-head { max-width: 1200px; margin: 0 auto; padding: 0 44px 52px; }
+    .sec-label {
+      font-size: 0.68rem; letter-spacing: 0.38em; text-transform: uppercase;
+      color: var(--gold); font-weight: 500; margin-bottom: 10px;
+    }
+    .sec-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 700; line-height: 1.1;
+      color: var(--deep-green); margin-bottom: 16px;
+    }
+    .sec-title em { font-style: italic; color: var(--mid-green); }
+    .sec-intro {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 300;
+      color: var(--text-mid); max-width: 500px; line-height: 1.75;
+    }
+
+    .drinks-grid {
+      max-width: 1200px; margin: 0 auto; padding: 0 44px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px;
+    }
+    .drink-card {
+      background: #fff;
+      border-radius: 3px;
+      overflow: hidden;
+      box-shadow: 0 2px 18px rgba(28,58,42,0.07);
+      transition: transform 0.38s cubic-bezier(.16,1,.3,1), box-shadow 0.38s ease;
+    }
+    .drink-card:hover { transform: translateY(-8px); box-shadow: 0 22px 55px rgba(28,58,42,0.14); }
+    .drink-img-wrap { overflow: hidden; position: relative; height: 210px; }
+    .drink-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; display: block; }
+    .drink-card:hover .drink-img { transform: scale(1.06); }
+    .drink-badge {
+      position: absolute; top: 12px; left: 12px;
+      background: var(--deep-green); color: var(--gold-light);
+      font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 4px 11px; border-radius: 99px;
+    }
+    .drink-body { padding: 20px 22px 24px; }
+    .drink-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.18rem; font-weight: 700;
+      color: var(--deep-green); margin-bottom: 7px;
+    }
+    .drink-desc { font-size: 0.83rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 16px; }
+    .drink-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 600; color: var(--gold);
+    }
+
+    /* ── GROCERIES ── */
+    #groceries { background: var(--deep-green); padding: 90px 0; }
+    #groceries .sec-label { color: var(--gold-light); }
+    #groceries .sec-title { color: var(--warm-white); }
+    #groceries .sec-title em { color: var(--gold-light); }
+    #groceries .sec-intro { color: rgba(247,242,234,0.55); }
+
+    .groceries-grid {
+      max-width: 1200px; margin: 0 auto; padding: 0 44px;
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px;
+    }
+    .grocery-card {
+      border-radius: 3px; overflow: hidden;
+      border: 1px solid rgba(201,168,76,0.18);
+      transition: transform 0.35s ease, border-color 0.3s;
+      cursor: default;
+    }
+    .grocery-card:hover { transform: translateY(-6px); border-color: rgba(201,168,76,0.5); }
+    .grocery-img-wrap { height: 150px; overflow: hidden; }
+    .grocery-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .grocery-card:hover .grocery-img { transform: scale(1.07); }
+    .grocery-body { padding: 14px 16px 18px; background: rgba(255,255,255,0.04); }
+    .grocery-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.98rem; font-weight: 600;
+      color: var(--warm-white); margin-bottom: 5px;
+    }
+    .grocery-detail { font-size: 0.75rem; color: rgba(247,242,234,0.48); line-height: 1.5; margin-bottom: 10px; }
+    .grocery-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; font-weight: 600; color: var(--gold-light);
+    }
+
+    /* ── ABOUT ── */
+    .about-band { background: var(--gold); padding: 80px 44px; }
+    .about-inner {
+      max-width: 1000px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .about-img-wrap { border-radius: 3px; overflow: hidden; height: 320px; }
+    .about-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .about-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      font-weight: 700; font-style: italic;
+      color: var(--deep-green); line-height: 1.35; margin-bottom: 20px;
+    }
+    .about-quote::before { content: '\201C'; }
+    .about-quote::after  { content: '\201D'; }
+    .about-text { font-size: 0.93rem; color: var(--deep-green); line-height: 1.82; opacity: 0.82; }
+    .about-sig {
+      margin-top: 22px;
+      font-family: 'Playfair Display', serif;
+      font-style: italic; font-size: 1.3rem;
+      color: var(--deep-green); font-weight: 700;
+    }
+
+    /* ── FOOTER ── */
+    footer { background: #0c1c12; padding: 64px 44px; text-align: center; }
+    .footer-brand {
+      font-family: 'Space Mono', monospace;
+      font-size: 2.2rem;
+      color: #fff;
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+    }
+    .footer-brand span { color: var(--gold-light); }
+    .footer-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 1.1rem;
+      color: rgba(247,242,234,0.4);
+    }
+    .footer-line { width: 55px; height: 1px; background: var(--gold); margin: 20px auto; }
+    .footer-meta { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(247,242,234,0.28); }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(.16,1,.3,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .drinks-grid { grid-template-columns: repeat(2, 1fr); }
+      .groceries-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-inner { grid-template-columns: 1fr; }
+      .about-img-wrap { height: 220px; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 13px 20px; }
+      .nav-links { display: none; }
+      .drinks-grid, .groceries-grid { grid-template-columns: 1fr; padding: 0 20px; }
+      .sec-head { padding: 0 20px 40px; }
+      .about-band { padding: 60px 20px; }
+      footer { padding: 50px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<header>
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-border"></div>
+  <div class="hero-content">
+    <p class="tagline-top">Est. since day one &nbsp;·&nbsp; Quality you can taste</p>
+    <div class="hero-brand">FUNDI<span class="dollar">$</span>Y</div>
+    <div class="hero-sub-name">by Joseph Mulenga</div>
+    <div class="hero-divider"></div>
+    <p class="hero-subtitle">Premium drinks &amp; everyday groceries, curated with care for your community.</p>
+    <a href="#drinks" class="hero-cta">Explore the Shop</a>
+  </div>
+  <div class="scroll-hint"><div class="scroll-line"></div>Scroll</div>
+</header>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo">FUNDI<span>$</span>Y</div>
+  <ul class="nav-links">
+    <li><a href="#drinks">Drinks</a></li>
+    <li><a href="#groceries">Groceries</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+</nav>
+
+<!-- ── DRINKS ── -->
+<div id="drinks">
+  <div class="sec-head">
+    <p class="sec-label reveal">Our Selection</p>
+    <h2 class="sec-title reveal">Fine Drinks &amp; <em>Refreshments</em></h2>
+    <p class="sec-intro reveal">From chilled sodas to rich juices and energising drinks — something for every mood and every moment.</p>
+  </div>
+
+  <div class="drinks-grid">
+
+    <div class="drink-card reveal">
+      <div class="drink-img-wrap">
+        <img class="drink-img" src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=800&q=80" alt="Tropical fruit juices" loading="lazy" />
+        <span class="drink-badge">Best Seller</span>
+      </div>
+      <div class="drink-body">
+        <div class="drink-name">Fresh Fruit Juices</div>
+        <p class="drink-desc">Cold-pressed mango, passion fruit, and mixed tropical blends. No added sugar, maximum flavour.</p>
+        <div class="drink-price">K25 – K45</div>
+      </div>
+    </div>
+
+    <div class="drink-card reveal">
+      <div class="drink-img-wrap">
+        <img class="drink-img" src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=800&q=80" alt="Soft drink bottles" loading="lazy" />
+        <span class="drink-badge">Popular</span>
+      </div>
+      <div class="drink-body">
+        <div class="drink-name">Bottled Sodas</div>
+        <p class="drink-desc">Full range of soft drinks — Cola, Fanta, Sprite, and local favourites, served ice cold.</p>
+        <div class="drink-price">K10 – K18</div>
+      </div>
+    </div>
+
+    <div class="drink-card reveal">
+      <div class="drink-img-wrap">
+        <img class="drink-img" src="https://images.unsplash.com/photo-1551269901-5c5e00aafdee?w=800&q=80" alt="Energy drinks" loading="lazy" />
+        <span class="drink-badge">New In</span>
+      </div>
+      <div class="drink-body">
+        <div class="drink-name">Energy Drinks</div>
+        <p class="drink-desc">Power up with Red Bull, Monster, and a selection of local energy boosters to keep you going.</p>
+        <div class="drink-price">K22 – K55</div>
+      </div>
+    </div>
+
+    <div class="drink-card reveal">
+      <div class="drink-img-wrap">
+        <img class="drink-img" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&q=80" alt="Coffee and tea" loading="lazy" />
+        <span class="drink-badge">Premium</span>
+      </div>
+      <div class="drink-body">
+        <div class="drink-name">Coffee &amp; Tea</div>
+        <p class="drink-desc">Instant coffees, loose leaf teas, and flavoured herbal options for a warm, comforting break.</p>
+        <div class="drink-price">K15 – K60</div>
+      </div>
+    </div>
+
+    <div class="drink-card reveal">
+      <div class="drink-img-wrap">
+        <img class="drink-img" src="https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=800&q=80" alt="Bottled water" loading="lazy" />
+        <span class="drink-badge">Essential</span>
+      </div>
+      <div class="drink-body">
+        <div class="drink-name">Bottled Water</div>
+        <p class="drink-desc">Still and sparkling mineral water in 500 ml, 1 L, and 5 L family sizes. Pure and refreshing.</p>
+        <div class="drink-price">K5 – K30</div>
+      </div>
+    </div>
+
+    <div class="drink-card reveal">
+      <div class="drink-img-wrap">
+        <img class="drink-img" src="https://images.unsplash.com/photo-1608270586620-248524c67de9?w=800&q=80" alt="Malt beverages" loading="lazy" />
+        <span class="drink-badge">Adults Only</span>
+      </div>
+      <div class="drink-body">
+        <div class="drink-name">Malt Beverages</div>
+        <p class="drink-desc">Malt drinks and non-alcoholic lagers. Rich, full-bodied flavour with a refreshing finish.</p>
+        <div class="drink-price">K20 – K40</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── GROCERIES ── -->
+<div id="groceries">
+  <div class="sec-head">
+    <p class="sec-label reveal">Fresh &amp; Packaged</p>
+    <h2 class="sec-title reveal">Quality <em>Groceries</em></h2>
+    <p class="sec-intro reveal">Everything your home needs — from pantry staples to fresh produce and daily essentials.</p>
+  </div>
+
+  <div class="groceries-grid">
+
+    <div class="grocery-card reveal">
+      <div class="grocery-img-wrap">
+        <img class="grocery-img" src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=600&q=80" alt="Mealie meal" loading="lazy" />
+      </div>
+      <div class="grocery-body">
+        <div class="grocery-name">Mealie Meal</div>
+        <div class="grocery-detail">National Milling &amp; premium brands. 2 kg, 5 kg, 25 kg bags.</div>
+        <div class="grocery-price">From K65</div>
+      </div>
+    </div>
+
+    <div class="grocery-card reveal">
+      <div class="grocery-img-wrap">
+        <img class="grocery-img" src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=600&q=80" alt="Cooking oil" loading="lazy" />
+      </div>
+      <div class="grocery-body">
+        <div class="grocery-name">Cooking Oil</div>
+        <div class="grocery-detail">Sunflower, soya &amp; blended oils. 750 ml to 5 L in stock.</div>
+        <div class="grocery-price">From K45</div>
+      </div>
+    </div>
+
+    <div class="grocery-card reveal">
+      <div class="grocery-img-wrap">
+        <img class="grocery-img" src="https://images.unsplash.com/photo-1535591273668-578e31182c4f?w=600&q=80" alt="Canned foods" loading="lazy" />
+      </div>
+      <div class="grocery-body">
+        <div class="grocery-name">Canned Goods</div>
+        <div class="grocery-detail">Tomato paste, beans, fish tins &amp; tinned vegetables.</div>
+        <div class="grocery-price">From K12</div>
+      </div>
+    </div>
+
+    <div class="grocery-card reveal">
+      <div class="grocery-img-wrap">
+        <img class="grocery-img" src="https://images.unsplash.com/photo-1532336414038-cf19250c5757?w=600&q=80" alt="Spices and salt" loading="lazy" />
+      </div>
+      <div class="grocery-body">
+        <div class="grocery-name">Spices &amp; Salt</div>
+        <div class="grocery-detail">Royco, BBQ spice, curry, mixed herbs &amp; stock cubes.</div>
+        <div class="grocery-price">From K8</div>
+      </div>
+    </div>
+
+    <div class="grocery-card reveal">
+      <div class="grocery-img-wrap">
+        <img class="grocery-img" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&q=80" alt="Fresh bread" loading="lazy" />
+      </div>
+      <div class="grocery-body">
+        <div class="grocery-name">Bread &amp; Baking</div>
+        <div class="grocery-detail">Fresh sliced loaves, flour, baking powder &amp; sugar.</div>
+        <div class="grocery-price">From K15</div>
+      </div>
+    </div>
+
+    <div class="grocery-card reveal">
+      <div class="grocery-img-wrap">
+        <img class="grocery-img" src="https://images.unsplash.com/photo-1628088062854-d1870b4553da?w=600&q=80" alt="Dairy products" loading="lazy" />
+      </div>
+      <div class="grocery-body">
+        <div class="grocery-name">Dairy Products</div>
+        <div class="grocery-detail">Long-life milk, powdered milk, yoghurt &amp; margarine.</div>
+        <div class="grocery-price">From K20</div>
+      </div>
+    </div>
+
+    <div class="grocery-card reveal">
+      <div class="grocery-img-wrap">
+        <img class="grocery-img" src="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=600&q=80" alt="Rice and pasta" loading="lazy" />
+      </div>
+      <div class="grocery-body">
+        <div class="grocery-name">Rice &amp; Pasta</div>
+        <div class="grocery-detail">Long grain rice, Basmati, spaghetti &amp; macaroni.</div>
+        <div class="grocery-price">From K30</div>
+      </div>
+    </div>
+
+    <div class="grocery-card reveal">
+      <div class="grocery-img-wrap">
+        <img class="grocery-img" src="https://images.unsplash.com/photo-1585687433141-f0e6b8d1af9d?w=600&q=80" alt="Household essentials" loading="lazy" />
+      </div>
+      <div class="grocery-body">
+        <div class="grocery-name">Household Essentials</div>
+        <div class="grocery-detail">Washing powder, dish soap, toilet rolls &amp; candles.</div>
+        <div class="grocery-price">From K10</div>
+      </div>
+    </div>
+
+    <div class="grocery-card reveal">
+      <div class="grocery-img-wrap">
+        <img class="grocery-img" src="https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=600&q=80" alt="Fresh eggs" loading="lazy" />
+      </div>
+      <div class="grocery-body">
+        <div class="grocery-name">Eggs &amp; Protein</div>
+        <div class="grocery-detail">Farm eggs (tray of 30), dried beans, peas &amp; groundnuts.</div>
+        <div class="grocery-price">From K55</div>
+      </div>
+    </div>
+
+    <div class="grocery-card reveal">
+      <div class="grocery-img-wrap">
+        <img class="grocery-img" src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=600&q=80" alt="Snacks and sweets" loading="lazy" />
+      </div>
+      <div class="grocery-body">
+        <div class="grocery-name">Snacks &amp; Sweets</div>
+        <div class="grocery-detail">Biscuits, crisps, chocolates &amp; mixed candy for all ages.</div>
+        <div class="grocery-price">From K5</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── ABOUT ── -->
+<div class="about-band" id="about">
+  <div class="about-inner">
+    <div class="about-img-wrap reveal">
+      <img class="about-img" src="https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=900&q=80" alt="Joseph Mulenga's shop" loading="lazy" />
+    </div>
+    <div class="reveal">
+      <div class="about-quote">Every customer leaves with a smile — that is my promise.</div>
+      <p class="about-text">
+        FUNDIFY by Joseph Mulenga has been a trusted name in the community for years. Built on honest service, fair prices, and the belief that quality should be accessible to everyone — from a cold drink on a hot afternoon to the staples that fill a family's table.
+        <br><br>
+        Come in, browse, and take your pick. We are always stocked, always ready, and always glad to see you.
+      </p>
+      <div class="about-sig">— Joseph Mulenga</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-brand">FUNDI<span>$</span>Y</div>
+  <div class="footer-sub">by Joseph Mulenga</div>
+  <div class="footer-line"></div>
+  <p class="footer-meta">Drinks &nbsp;·&nbsp; Groceries &nbsp;·&nbsp; Community</p>
+  <br>
+  <p class="footer-meta" style="opacity:0.25">© 2026 FUNDIFY – Joseph Mulenga's Shop. All rights reserved.</p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 70);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
